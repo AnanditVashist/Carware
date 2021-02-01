@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <partial name="_LayoutHeader" />
+    <link class="style" href="css/theme.css" rel="stylesheet" id="theme-style">
+    <link class="style" href="css/theme-dark.css" rel="stylesheet" id="theme-style-dark">
+    <link class="style" href="css/theme-rtl.css" rel="stylesheet" id="theme-style-rtl">
+    <link class="style" href="css/theme-dark-rtl.css" rel="stylesheet" id="theme-style-dark-rtl">
+    @RenderSection("Styles", false)
+</head>
+
+<body>
+    <main class="main" id="top">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+    <partial name="_LayoutJS" />
+    @RenderSection("Scripts", false)
+    <script src="/Content/assets/js/theme.js"></script>
+</body>
+</html>

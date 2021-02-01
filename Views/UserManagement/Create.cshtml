@@ -1,0 +1,53 @@
+﻿@model Carware.ViewModels.CreateUserViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 class="d-inline">Add a new Employee</h2>
+
+@using (Html.BeginForm("Create", "UserManagement", FormMethod.Post, new { id = "form", style = "width:50%;" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="mt-5 form-group">
+        @Html.LabelFor(d => d.FirstName, "First Name")
+        @Html.TextBoxFor(d => d.FirstName, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(d => d.FirstName, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(d => d.LastName, "Last name")
+        @Html.TextBoxFor(d => d.LastName, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(d => d.LastName, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(d => d.PhoneNumber, "Phone number")
+        @Html.TextBoxFor(d => d.PhoneNumber, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(d => d.PhoneNumber, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(d => d.EmailAddress, "Email Address")
+        @Html.TextBoxFor(d => d.EmailAddress, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(d => d.EmailAddress, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(d => d.Roles, "Employee Role")
+        <select asp-for="RoleName" asp-items="@Model.Roles">
+            <option>Please select</option>
+        </select>
+        @Html.ValidationMessageFor(d => d.Roles, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(d => d.SupervisorNames, "Supervisor's Name")
+        <select asp-for="SupervisorId" asp-items="@Model.SupervisorNames">
+            <option>Please select</option>
+        </select>
+        @Html.ValidationMessageFor(d => d.Roles, null, new { @class = "text-danger" })
+    </div>
+
+
+    <button type="submit" class="btn btn-primary mr-2">Add</button>
+    @Html.ActionLink("Cancel", "Index", "Usermanagement", null, new { @class = "btn btn-secondary" })
+}

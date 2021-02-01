@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carware", "Carware.csproj", "{7533B8EC-3772-440E-A563-4938F7EA9832}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7533B8EC-3772-440E-A563-4938F7EA9832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7533B8EC-3772-440E-A563-4938F7EA9832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7533B8EC-3772-440E-A563-4938F7EA9832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7533B8EC-3772-440E-A563-4938F7EA9832}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CD794A1-4776-4C43-B1EE-A22B98A42C68}
+	EndGlobalSection
+EndGlobal
