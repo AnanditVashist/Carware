@@ -5,7 +5,7 @@
 
 <h2 class="d-inline">Add a new Employee</h2>
 
-@using (Html.BeginForm("Create", "UserManagement", FormMethod.Post, new { id = "form", style = "width:50%;" }))
+@using (Html.BeginForm("Edit", "UserManagement", FormMethod.Post, new { id = "form", style = "width:50%;" }))
 {
     @Html.AntiForgeryToken()
 

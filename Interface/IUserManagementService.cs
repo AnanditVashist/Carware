@@ -5,7 +5,9 @@ namespace Carware.Interface
 {
     public interface IUserManagementService
     {
-        Task<CreateUserViewModel> GetCreateUserViewModelAsync();
-        Task SaveUserInDb(CreateUserViewModel viewModel);
+        Task<UserViewModel> GetCreateUserViewModelAsync();
+        Task<UserViewModel> GetEditUserViewModelAsync(string id);
+        Task SaveUserInDb(UserViewModel viewModel);
+        Task EditUserInDb(UserViewModel viewModel);
     }
 }

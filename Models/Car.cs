@@ -16,5 +16,7 @@ namespace Carware.Models
         public Customer Customer { get; set; }
         public int? CustomerId { get; set; }
         public ApplicationUser Seller { get; set; }
+        public string SellerId { get; set; }
+
     }
 }

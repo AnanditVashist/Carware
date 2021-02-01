@@ -21,9 +21,30 @@ namespace Carware.Services
             _roleManager = RoleManager;
         }
 
-        public async Task<CreateUserViewModel> GetCreateUserViewModelAsync()
+        public async Task EditUserInDb(UserViewModel viewModel)
         {
-            var viewModel = new CreateUserViewModel();
+
+            var userInDb = await _userManager.FindByIdAsync(viewModel.Id);
+            var userInDbRole = await _userManager.GetRolesAsync(userInDb);
+
+            userInDb.FirstName = viewModel.FirstName;
+            userInDb.LastName = viewModel.LastName;
+            userInDb.Email = viewModel.Email;
+            userInDb.PhoneNumber = viewModel.PhoneNumber;
+            userInDb.SupervisorId = viewModel.SupervisorId;
+            userInDb.UserName = viewModel.Email;
+
+
+            await _userManager.RemoveFromRoleAsync(userInDb, userInDbRole[0]);
+
+            await _userManager.AddToRoleAsync(userInDb, viewModel.RoleName);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<UserViewModel> GetCreateUserViewModelAsync()
+        {
+            var viewModel = new UserViewModel();
             foreach (var role in _roleManager.Roles)
             {
                 var roleIndb = new SelectListItem
@@ -68,15 +89,84 @@ namespace Carware.Services
             return viewModel;
         }
 
-        public async Task SaveUserInDb(CreateUserViewModel viewModel)
+        public async Task<UserViewModel> GetEditUserViewModelAsync(string id)
+        {
+            var userInDb = await _userManager.FindByIdAsync(id);
+            var viewModel = new UserViewModel
+            {
+                FirstName = userInDb.FirstName,
+                LastName = userInDb.LastName,
+                Email = userInDb.Email,
+                PhoneNumber = userInDb.PhoneNumber,
+                SupervisorId = userInDb.SupervisorId
+            };
+            foreach (var role in _roleManager.Roles)
+            {
+                var roleIndb = new SelectListItem
+                {
+                    Value = role.Name,
+                    Text = role.Name,
+                };
+                if (await _userManager.IsInRoleAsync(userInDb, role.Name))
+                {
+                    roleIndb.Selected = true;
+                }
+
+                viewModel.Roles.Add(roleIndb);
+            }
+            var smList = await _userManager.GetUsersInRoleAsync(AuthorizationRoles.SalesManager);
+            if (!(smList.Count == 0))
+            {
+                for (int i = 0; i < smList.Count; i++)
+                {
+                    var smInDb = new SelectListItem
+                    {
+                        Value = smList[i].Id,
+                        Text = (smList[i].FirstName + " " + smList[i].LastName),
+
+                    };
+                    if (smList[i].Id == userInDb.SupervisorId)
+                    {
+                        smInDb.Selected = true;
+                    }
+                    viewModel.SupervisorNames.Add(smInDb);
+                }
+            }
+            var gmList = await _userManager.GetUsersInRoleAsync(AuthorizationRoles.GeneralManager);
+            if (!(gmList.Count == 0))
+            {
+                for (int i = 0; i < gmList.Count; i++)
+                {
+                    var gmInDb = new SelectListItem
+                    {
+                        Value = gmList[i].Id,
+                        Text = (gmList[i].FirstName + " " + gmList[i].LastName),
+
+                    };
+                    if (gmList[i].Id == userInDb.SupervisorId)
+                    {
+                        gmInDb.Selected = true;
+                    }
+                    viewModel.SupervisorNames.Add(gmInDb);
+                }
+            }
+
+
+
+
+            return viewModel;
+        }
+
+        public async Task SaveUserInDb(UserViewModel viewModel)
         {
             var user = new ApplicationUser
             {
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
-                Email = viewModel.EmailAddress,
+                Email = viewModel.Email,
                 PhoneNumber = viewModel.PhoneNumber,
-                UserName = viewModel.EmailAddress
+                UserName = viewModel.Email,
+                SupervisorId = viewModel.SupervisorId
 
             };
             var pswd = "Password1!";
@@ -87,6 +177,7 @@ namespace Carware.Services
             }
 
             await _userManager.AddToRoleAsync(user, viewModel.RoleName);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -313,9 +313,10 @@ namespace Carware.Migrations
 
             modelBuilder.Entity("Carware.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("Carware.Models.Supervisor", null)
+                    b.HasOne("Carware.Models.Supervisor", "Supervisor")
                         .WithMany("EmployeesSupervised")
-                        .HasForeignKey("SupervisorId");
+                        .HasForeignKey("SupervisorId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Carware.Models.Car", b =>

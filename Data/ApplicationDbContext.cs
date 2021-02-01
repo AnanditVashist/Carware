@@ -6,8 +6,8 @@ namespace Carware.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Car> Cars { get; set; }
         public DbSet<Supervisor> Supervisors { get; set; }
+        public DbSet<Car> Cars { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -25,9 +25,10 @@ namespace Carware.Data
                 .WithMany(a => a.CarsSold)
                 .OnDelete(DeleteBehavior.SetNull);
 
-
-
-
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(u => u.Supervisor)
+                .WithMany(Supervisor => Supervisor.EmployeesSupervised)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

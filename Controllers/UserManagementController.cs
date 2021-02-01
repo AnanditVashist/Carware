@@ -27,9 +27,21 @@ namespace Carware.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserViewModel user)
+        public async Task<IActionResult> Create(UserViewModel user)
         {
             await _userManagementService.SaveUserInDb(user);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var employeeInDb = await _userManagementService.GetEditUserViewModelAsync(id);
+            return View(employeeInDb);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserViewModel viewModel)
+        {
+            await _userManagementService.EditUserInDb(viewModel);
             return RedirectToAction("Index");
         }
 

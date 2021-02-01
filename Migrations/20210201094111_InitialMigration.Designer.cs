@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Carware.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210201083520_DeletedSupervisorInApplicationUser")]
-    partial class DeletedSupervisorInApplicationUser
+    [Migration("20210201094111_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -315,9 +315,10 @@ namespace Carware.Migrations
 
             modelBuilder.Entity("Carware.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("Carware.Models.Supervisor", null)
+                    b.HasOne("Carware.Models.Supervisor", "Supervisor")
                         .WithMany("EmployeesSupervised")
-                        .HasForeignKey("SupervisorId");
+                        .HasForeignKey("SupervisorId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Carware.Models.Car", b =>
