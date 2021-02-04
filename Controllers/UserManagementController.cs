@@ -44,6 +44,13 @@ namespace Carware.Controllers
             await _userManagementService.EditUserInDb(viewModel);
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _userManagementService.DeleteUserInDb(id);
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }

@@ -9,5 +9,6 @@ namespace Carware.Interface
         Task<UserViewModel> GetEditUserViewModelAsync(string id);
         Task SaveUserInDb(UserViewModel viewModel);
         Task EditUserInDb(UserViewModel viewModel);
+        Task DeleteUserInDb(string id);
     }
 }

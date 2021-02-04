@@ -5,6 +5,7 @@ using Carware.StringConstants;
 using Carware.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Carware.Services
@@ -19,6 +20,19 @@ namespace Carware.Services
             _dbContext = dbContext;
             _userManager = UserManager;
             _roleManager = RoleManager;
+        }
+
+        public async Task DeleteUserInDb(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            var employeesSupervised = _dbContext.Users.Where(u => u.SupervisorId == id);
+            foreach (var emplooyee in employeesSupervised)
+            {
+                emplooyee.SupervisorId = null;
+            }
+            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+            await _userManager.DeleteAsync(user);
         }
 
         public async Task EditUserInDb(UserViewModel viewModel)
@@ -119,17 +133,21 @@ namespace Carware.Services
             {
                 for (int i = 0; i < smList.Count; i++)
                 {
-                    var smInDb = new SelectListItem
+                    if (smList[i].Id != id)
                     {
-                        Value = smList[i].Id,
-                        Text = (smList[i].FirstName + " " + smList[i].LastName),
+                        var smInDb = new SelectListItem
+                        {
+                            Value = smList[i].Id,
+                            Text = (smList[i].FirstName + " " + smList[i].LastName),
 
-                    };
-                    if (smList[i].Id == userInDb.SupervisorId)
-                    {
-                        smInDb.Selected = true;
+                        };
+                        if (smList[i].Id == userInDb.SupervisorId)
+                        {
+                            smInDb.Selected = true;
+                        }
+                        viewModel.SupervisorNames.Add(smInDb);
+
                     }
-                    viewModel.SupervisorNames.Add(smInDb);
                 }
             }
             var gmList = await _userManager.GetUsersInRoleAsync(AuthorizationRoles.GeneralManager);
@@ -137,17 +155,20 @@ namespace Carware.Services
             {
                 for (int i = 0; i < gmList.Count; i++)
                 {
-                    var gmInDb = new SelectListItem
+                    if (gmList[i].Id != id)
                     {
-                        Value = gmList[i].Id,
-                        Text = (gmList[i].FirstName + " " + gmList[i].LastName),
+                        var gmInDb = new SelectListItem
+                        {
+                            Value = gmList[i].Id,
+                            Text = (gmList[i].FirstName + " " + gmList[i].LastName),
 
-                    };
-                    if (gmList[i].Id == userInDb.SupervisorId)
-                    {
-                        gmInDb.Selected = true;
+                        };
+                        if (gmList[i].Id == userInDb.SupervisorId)
+                        {
+                            gmInDb.Selected = true;
+                        }
+                        viewModel.SupervisorNames.Add(gmInDb);
                     }
-                    viewModel.SupervisorNames.Add(gmInDb);
                 }
             }
 
