@@ -3,9 +3,9 @@
     ViewBag.Title = "Edit Car";
 }
 
-<h2 class="d-inline">Edit Car</h2>
+<h2 class="d-inline ml-3">Edit Car <i class="fas fa-car"></i></h2>
 
-@using (Html.BeginForm("Edit", "Car", FormMethod.Post, new { id = "form", style = "width:50%;" }))
+@using (Html.BeginForm("Edit", "Car", FormMethod.Post, new { id = "form", @class = "ml-3", style = "width:50%;" }))
 {
     @Html.AntiForgeryToken()
 

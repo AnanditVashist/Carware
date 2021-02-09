@@ -41,15 +41,16 @@ namespace Carware.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Sell()
-        {
-            return View();
-        }
+
 
         public IActionResult Inventory()
         {
 
             return View(_carService.GetInventory());
+        }
+        public IActionResult Sell(int id)
+        {
+            return View(_carService.GetSellCarViewModel(id));
         }
 
     }

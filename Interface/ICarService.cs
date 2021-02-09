@@ -12,5 +12,7 @@ namespace Carware.Interface
         CarViewModel GetEditCarViewModel(int id);
         void UpdateCarInDb(CarViewModel viewModel);
         InventoryViewModel GetInventory();
+
+        SellCarViewModel GetSellCarViewModel(int carId);
     }
 }

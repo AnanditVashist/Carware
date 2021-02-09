@@ -3,9 +3,9 @@
     ViewBag.Title = "Add Car";
 }
 
-<h2 class="d-inline">Add a new Car</h2>
+<h2 class="d-inline ml-3">Add a new Car <i class="fas fa-car"></i></h2>
 
-@using (Html.BeginForm("Create", "Car", FormMethod.Post, new { id = "form", style = "width:50%;" }))
+@using (Html.BeginForm("Create", "Car", FormMethod.Post, new { id = "form", @class = "ml-3", style = "width:50%;" }))
 {
     @Html.AntiForgeryToken()
 
@@ -30,7 +30,7 @@
 
     <div class="form-group">
         @Html.LabelFor(d => d.PurchaseDate, "Purchase Date")
-        @Html.TextBoxFor(d => d.PurchaseDate, new { @class = "form-control", id = "datePicker", autofocus = "autofocus" })
+        @Html.TextBoxFor(d => d.PurchaseDate, new { @class = "form-control datePickrBackground", id = "datePicker", autofocus = "autofocus" })
         @Html.ValidationMessageFor(d => d.PurchaseDate, null, new { @class = "text-danger" })
     </div>
     <div class="form-group">

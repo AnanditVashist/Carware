@@ -2,20 +2,12 @@
 <a href="index3.html" class="brand-link">
     <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
-    <span class="brand-text font-weight-light">PugBug</span>
+    <span class="brand-text font-weight-light">CarWare</span>
 </a>
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-            <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-    </div>
+
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -24,21 +16,27 @@
                 <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-folder"></i>
                     <p>
-                        Projects
+                        Vehicles
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/projects" class="nav-link">
+                        <a asp-action="Inventory" asp-controller="Car" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Projects</p>
+                            <p>View Inventory</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/projects/create" class="nav-link">
+                        <a asp-action="Create" asp-controller="Car" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Create New Project</p>
+                            <p>Add new Vehicle</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Create" asp-controller="Car" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>View Sold Vehicle</p>
                         </a>
                     </li>
                 </ul>
@@ -49,21 +47,22 @@
                 <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-clipboard-list"></i>
                     <p>
-                        Tickets
+                        Customer
                         <i class="right fas fa-angle-left"></i>
+
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/Tickets" class="nav-link">
+                        <a href="/Tickets" class="nav-link hover-">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Tickets</p>
+                            <p>View customer</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Tickets/create" class="nav-link">
+                        <a href="/Tickets" class="nav-link hover-">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add New Ticket</p>
+                            <p>Add Customer</p>
                         </a>
                     </li>
                 </ul>
@@ -74,7 +73,7 @@
                 <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-clipboard-list"></i>
                     <p>
-                        Users
+                        User Management
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -82,38 +81,16 @@
                     <li class="nav-item">
                         <a href="/Usersadmin" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Users</p>
+                            <p>View Employees</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="/Usersadmin" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Admins</p>
+                            <p>Add Employee</p>
                         </a>
                     </li>
-
-                    <li class="nav-item">
-                        <a href="/Usersadmin/managers" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Managers</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="/Usersadmin/developers" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Developers</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="/Usersadmin/submitters" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Submitters</p>
-                        </a>
-                    </li>
-
                 </ul>
             </li>
         </ul>

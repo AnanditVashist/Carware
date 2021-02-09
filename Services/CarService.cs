@@ -107,5 +107,13 @@ namespace Carware.Services
 
             return inventory;
         }
+
+        public SellCarViewModel GetSellCarViewModel(int carId)
+        {
+            var viewModel = new SellCarViewModel();
+            viewModel.Car = TurnCarToViewModel(_dbContext.Cars.Find(carId));
+
+            return viewModel;
+        }
     }
 }
