@@ -14,5 +14,6 @@ namespace Carware.Interface
         InventoryViewModel GetInventory();
 
         SellCarViewModel GetSellCarViewModel(int carId);
+        void SellCar(SellCarViewModel viewModel);
     }
 }

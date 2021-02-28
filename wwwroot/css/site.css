@@ -31,6 +31,20 @@ footer, header, hgroup, menu, nav, section {
     background-color: #fff;
 }
 
+@media screen and (min-width:1200px) {
+    #sellContainer {
+        width:800px;
+        position:relative;
+        left:500px;
+    }
+    #customerDetails{
+        width:427px;
+        position:relative;
+        left:100px;
+    }
+}
+
+#
 body {
     line-height: 1;
 }

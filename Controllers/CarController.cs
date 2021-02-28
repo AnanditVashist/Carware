@@ -53,5 +53,12 @@ namespace Carware.Controllers
             return View(_carService.GetSellCarViewModel(id));
         }
 
+        [HttpPost]
+        public IActionResult Sell(SellCarViewModel viewModel)
+        {
+            _carService.SellCar(viewModel);
+            return RedirectToAction("Index");
+        }
+
     }
 }

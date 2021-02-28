@@ -115,5 +115,26 @@ namespace Carware.Services
 
             return viewModel;
         }
+
+        public void SellCar(SellCarViewModel viewModel)
+        {
+            var carInDb = _dbContext.Cars.Find(viewModel.Car.Id);
+            carInDb.ActualSellingPrice = Convert.ToInt32(viewModel.SellingPrice);
+            carInDb.SellingDate = DateTime.Today;
+            carInDb.SellerId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var customer = new Customer
+            {
+                FirstName = viewModel.CustomerDetails.FirstName,
+                LastName = viewModel.CustomerDetails.LastName,
+                EmailAddress = viewModel.CustomerDetails.EmailAddress,
+                PhoneNumber = viewModel.CustomerDetails.PhoneNumber,
+                Car = carInDb
+            };
+
+            _dbContext.Customers.Add(customer);
+            _dbContext.SaveChanges();
+        }
+
+
     }
 }
