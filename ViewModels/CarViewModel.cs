@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Carware.Models;
+using System;
 
 namespace Carware.ViewModels
 {
@@ -11,6 +12,11 @@ namespace Carware.ViewModels
         public DateTime PurchaseDate { get; set; }
         public string PurchasePrice { get; set; }
         public string IdealSellingPrice { get; set; }
+        public string SellingPrice { get; set; }
         public string MaxDiscount { get; set; }
+        public DateTime SellDate { get; set; }
+        public ApplicationUser Seller { get; set; }
+
+
     }
 }

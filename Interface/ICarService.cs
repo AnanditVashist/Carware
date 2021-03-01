@@ -1,19 +1,21 @@
 ﻿using Carware.Models;
 using Carware.ViewModels;
+using System.Threading.Tasks;
 
 namespace Carware.Interface
 {
     public interface ICarService
     {
         void SaveCarInDb(CarViewModel viewModel);
-        CarViewModel TurnCarToViewModel(Car car);
+        Task<CarViewModel> TurnCarToViewModelAsync(Car car);
         Car TurnViewModelToCar(CarViewModel car);
         string GetCurrentLoggedInUserId();
-        CarViewModel GetEditCarViewModel(int id);
+        Task<CarViewModel> GetEditCarViewModel(int id);
         void UpdateCarInDb(CarViewModel viewModel);
-        InventoryViewModel GetInventory();
+        Task<InventoryViewModel> GetInventory();
 
-        SellCarViewModel GetSellCarViewModel(int carId);
+        Task<SellCarViewModel> GetSellCarViewModel(int carId);
         void SellCar(SellCarViewModel viewModel);
+        Task<InventoryViewModel> SoldVehicles();
     }
 }

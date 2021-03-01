@@ -3,6 +3,9 @@ using Carware.Interface;
 using Carware.Models;
 using Carware.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Carware.Services
 {
@@ -34,6 +37,13 @@ namespace Carware.Services
         public Customer FindCustomerById(int id)
         {
             return _dbContext.Customers.Find(id);
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            var allCustomers = _dbContext.Customers.Include(c => c.Car.Seller).ToList();
+
+            return allCustomers;
         }
 
         public void UpdateCustomerInDb(Customer viewModel)

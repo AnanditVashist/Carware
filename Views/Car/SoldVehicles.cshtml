@@ -1,0 +1,22 @@
+﻿@model Carware.ViewModels.InventoryViewModel
+<div id="inventoryContainer">
+
+    @foreach (var car in Model.Inventory)
+    {
+        <div class="card overflow-hidden d-inline-block" style="width: 20rem;">
+            <div class="card-img-top text-center"><img class="img-fluid" src="/img/Car.png" width="150px" height="150px" alt="Card image cap" /></div>
+            <div class="card-body">
+                <h5 class="card-title">@car.Make @car.Model</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Year-@car.Year</li>
+                <li class="list-group-item">Selling Price-@car.SellingPrice</li>
+                <li class="list-group-item">Ideal Selling Price-@car.IdealSellingPrice</li>
+                <li class="list-group-item">Sales Associate-@car.Seller.FirstName @car.Seller.LastName</li>
+                <li class="list-group-item">Purchased On-@car.PurchaseDate.ToShortDateString()</li>
+                <li class="list-group-item">Sold On-@car.SellDate.Date.ToShortDateString()</li>
+            </ul>
+        </div>
+
+    }
+</div>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Carware.Services
 {
@@ -37,7 +38,7 @@ namespace Carware.Services
             _dbContext.SaveChanges();
         }
 
-        public CarViewModel TurnCarToViewModel(Car car)
+        public async Task<CarViewModel> TurnCarToViewModelAsync(Car car)
         {
             var viewModel = new CarViewModel
             {
@@ -49,6 +50,14 @@ namespace Carware.Services
                 PurchasePrice = (car.PurchasePrice).ToString(),
                 IdealSellingPrice = (car.IdealSellingPrice).ToString(),
                 MaxDiscount = (car.MaxDiscount).ToString(),
+
+            };
+            if (car.SellerId != null)
+            {
+                viewModel.SellingPrice = car.ActualSellingPrice.ToString();
+                viewModel.SellDate = (DateTime)car.SellingDate;
+                viewModel.Seller = await _userManager.FindByIdAsync(car.SellerId);
+
             };
             return viewModel;
         }
@@ -86,14 +95,13 @@ namespace Carware.Services
             _dbContext.SaveChanges();
         }
 
-        public CarViewModel GetEditCarViewModel(int id)
+        public Task<CarViewModel> GetEditCarViewModel(int id)
         {
             var carInDb = _dbContext.Cars.Find(id);
-            return TurnCarToViewModel(carInDb);
-
+            return TurnCarToViewModelAsync(carInDb);
         }
 
-        public InventoryViewModel GetInventory()
+        public async Task<InventoryViewModel> GetInventory()
         {
             var inventory = new InventoryViewModel();
 
@@ -101,17 +109,18 @@ namespace Carware.Services
 
             foreach (var car in inventoryInDb)
             {
-                var viewModel = TurnCarToViewModel(car);
+                var viewModel = await TurnCarToViewModelAsync(car);
                 inventory.Inventory.Add(viewModel);
+
             }
 
             return inventory;
         }
 
-        public SellCarViewModel GetSellCarViewModel(int carId)
+        public async Task<SellCarViewModel> GetSellCarViewModel(int carId)
         {
             var viewModel = new SellCarViewModel();
-            viewModel.Car = TurnCarToViewModel(_dbContext.Cars.Find(carId));
+            viewModel.Car = await TurnCarToViewModelAsync(_dbContext.Cars.Find(carId));
 
             return viewModel;
         }
@@ -133,6 +142,20 @@ namespace Carware.Services
 
             _dbContext.Customers.Add(customer);
             _dbContext.SaveChanges();
+        }
+        public async Task<InventoryViewModel> SoldVehicles()
+        {
+            var soldCars = new InventoryViewModel();
+
+            var soldCarsInDb = _dbContext.Cars.Where(c => c.SellingDate != null).ToList();
+
+            foreach (var car in soldCarsInDb)
+            {
+                var viewModel = TurnCarToViewModelAsync(car);
+                soldCars.Inventory.Add(await viewModel);
+            }
+
+            return soldCars;
         }
 
 

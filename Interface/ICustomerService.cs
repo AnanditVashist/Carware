@@ -1,5 +1,6 @@
 ﻿using Carware.Models;
 using Carware.ViewModels;
+using System.Collections.Generic;
 
 namespace Carware.Interface
 {
@@ -8,5 +9,7 @@ namespace Carware.Interface
         void CreateAndSaveCustomerInDb(CustomerViewModel viewModel);
         void UpdateCustomerInDb(Customer viewModel);
         Customer FindCustomerById(int id);
+        List<Customer> GetAllCustomers();
+
     }
 }

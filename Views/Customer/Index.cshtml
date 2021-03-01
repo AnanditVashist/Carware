@@ -1,1 +1,47 @@
-﻿
+﻿@model List<Carware.Models.Customer>
+
+@{
+}
+
+
+
+<div class="card mb-3">
+    <div class="card-header bg-primary">
+        <h4 class="mt-2 text-white">List of all Customers</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive fs--1">
+            <table class="table table-striped border-bottom">
+                <thead class="bg-200 text-900">
+                    <tr class="">
+                        <th class="border-0 bold">Customer Name</th>
+                        <th class="border-0 bold">Email Address</th>
+                        <th class="border-0 bold">Phone Number</th>
+                        <th class="border-0 bold">Car bought</th>
+                        <th class="border-0 bold">Sales Associate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+
+                            <td class="align-middle">@customer.FirstName @customer.LastName</td>
+                            <td class="align-middle">@customer.EmailAddress</td>
+                            <td class="align-middle">@customer.PhoneNumber</td>
+                            <td class="align-middle">@customer.Car.Year @customer.Car.Make @customer.Car.Model</td>
+                            <td class="align-middle">@customer.Car.Seller.FirstName @customer.Car.Seller.LastName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(".table").DataTable({});
+    </script>
+}

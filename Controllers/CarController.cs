@@ -1,6 +1,7 @@
 ﻿using Carware.Interface;
 using Carware.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Carware.Controllers
 {
@@ -43,10 +44,10 @@ namespace Carware.Controllers
 
 
 
-        public IActionResult Inventory()
+        public async Task<IActionResult> Inventory()
         {
 
-            return View(_carService.GetInventory());
+            return View(await _carService.GetInventory());
         }
         public IActionResult Sell(int id)
         {
@@ -58,6 +59,11 @@ namespace Carware.Controllers
         {
             _carService.SellCar(viewModel);
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> SoldVehicles()
+        {
+            return View(await _carService.SoldVehicles());
         }
 
     }
