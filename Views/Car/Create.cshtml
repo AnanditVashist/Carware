@@ -5,7 +5,7 @@
 
 <h2 class="d-inline ml-3">Add a new Car <i class="fas fa-car"></i></h2>
 
-@using (Html.BeginForm("Create", "Car", FormMethod.Post, new { id = "form", @class = "ml-3", style = "width:50%;" }))
+@using (Html.BeginForm("Create", "Car", FormMethod.Post, new { id = "form", @class = "ml-3", style = "width:50%;", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -48,7 +48,11 @@
         @Html.TextBoxFor(d => d.MaxDiscount, new { @class = "form-control", type = "number", autofocus = "autofocus" })
         @Html.ValidationMessageFor(d => d.MaxDiscount, null, new { @class = "text-danger" })
     </div>
-
+    <div class="form-group">
+        @Html.LabelFor(d => d.Photos, "Photos")
+        <input asp-for="Photos" class="form-control custom-file-input" accept="Image/*" />
+        @Html.ValidationMessageFor(d => d.Photos, null, new { @class = "text-danger" })
+    </div>
     <button type="submit" class="btn btn-primary mr-2">Add</button>
     @Html.ActionLink("Cancel", "Index", "Car", null, new { @class = "btn btn-secondary" })
 }

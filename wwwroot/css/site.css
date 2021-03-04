@@ -31,6 +31,17 @@ footer, header, hgroup, menu, nav, section {
     background-color: #fff;
 }
 
+.picContainer{
+    height:234px;
+    width:318px;
+}
+
+.pic {
+    height: 234px;
+    width: 318px;
+    object-fit: cover;
+}
+
 @media screen and (min-width:1200px) {
     #sellContainer {
         width:800px;

@@ -10,5 +10,6 @@ namespace Carware.Interface
         Task SaveUserInDb(UserViewModel viewModel);
         Task EditUserInDb(UserViewModel viewModel);
         Task DeleteUserInDb(string id);
+        object GetAllUsers();
     }
 }

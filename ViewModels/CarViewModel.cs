@@ -1,10 +1,17 @@
 ﻿using Carware.Models;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 
 namespace Carware.ViewModels
 {
     public class CarViewModel
     {
+        public CarViewModel()
+        {
+            PhotoString = new List<string>();
+            Photos = new List<IFormFile>();
+        }
         public int Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
@@ -16,7 +23,9 @@ namespace Carware.ViewModels
         public string MaxDiscount { get; set; }
         public DateTime SellDate { get; set; }
         public ApplicationUser Seller { get; set; }
-
+        public List<String> PhotoString { get; set; }
+        public List<IFormFile> Photos { get; set; }
 
     }
+
 }

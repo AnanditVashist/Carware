@@ -4,7 +4,10 @@ using Carware.Models;
 using Carware.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -34,6 +37,21 @@ namespace Carware.Services
         public void SaveCarInDb(CarViewModel viewModel)
         {
             var car = TurnViewModelToCar(viewModel);
+            var photoList = new List<Photo>();
+            foreach (var photoInViewModel in viewModel.Photos)
+            {
+                var photo = new Photo();
+                using (var ms = new MemoryStream())
+                {
+                    photoInViewModel.
+                        CopyTo(ms);
+                    photo.PhotoBlob = ms.ToArray();
+                }
+                photo.CarId = viewModel.Id;
+                photoList.Add(photo);
+            }
+            car.Photos = photoList;
+
             _dbContext.Cars.Add(car);
             _dbContext.SaveChanges();
         }
@@ -52,6 +70,12 @@ namespace Carware.Services
                 MaxDiscount = (car.MaxDiscount).ToString(),
 
             };
+
+            foreach (var photo in car.Photos)
+            {
+                var image64String = Convert.ToBase64String(photo.PhotoBlob);
+                viewModel.PhotoString.Add(image64String);
+            }
             if (car.SellerId != null)
             {
                 viewModel.SellingPrice = car.ActualSellingPrice.ToString();
@@ -105,7 +129,7 @@ namespace Carware.Services
         {
             var inventory = new InventoryViewModel();
 
-            var inventoryInDb = _dbContext.Cars.ToList();
+            var inventoryInDb = _dbContext.Cars.Include(c => c.Photos).ToList();
 
             foreach (var car in inventoryInDb)
             {

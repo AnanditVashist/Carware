@@ -8,6 +8,7 @@ namespace Carware.Data
     {
         public DbSet<Supervisor> Supervisors { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

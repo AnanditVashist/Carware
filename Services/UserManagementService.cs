@@ -56,6 +56,11 @@ namespace Carware.Services
             await _dbContext.SaveChangesAsync();
         }
 
+        public object GetAllUsers()
+        {
+            return _dbContext.Users.ToList();
+        }
+
         public async Task<UserViewModel> GetCreateUserViewModelAsync()
         {
             var viewModel = new UserViewModel();

@@ -15,7 +15,7 @@ namespace Carware.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_userManagementService.GetAllUsers());
         }
         public async Task<IActionResult> Create()
         {

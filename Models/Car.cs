@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Carware.Models
 {
@@ -18,6 +19,7 @@ namespace Carware.Models
         public int? CustomerId { get; set; }
         public ApplicationUser Seller { get; set; }
         public string SellerId { get; set; }
+        public List<Photo> Photos { get; set; }
 
     }
 }

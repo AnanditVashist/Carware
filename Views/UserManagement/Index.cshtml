@@ -1,1 +1,66 @@
-﻿
+﻿@model List<Carware.Models.ApplicationUser>
+<div class="card mb-3">
+    <div class="card-header bg-primary">
+        <h4 class="mt-2 text-white">List of all Drivers</h4>
+        <div class="col-sm-auto pl-0">
+            <a class="btn btn-falcon-default btn-sm" asp-action="Create" asp-controller="UserManagement">
+                <svg class="svg-inline--fa fa-plus fa-w-14 mr-2" data-fa-transform="shrink-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.5em;">
+                    <g transform="translate(224 256)">
+                        <g transform="translate(0, 0)  scale(0.875, 0.875)  rotate(0 0 0)">
+                            <path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" transform="translate(-224 -256)"></path>
+                        </g>
+                    </g>
+                </svg>Add New eMPLOYEE
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive fs--1">
+            <table class="table table-striped border-bottom">
+                <thead class="bg-200 text-900">
+                    <tr class="">
+                        <th class="border-0 bold">Employee Name</th>
+                        <th class="border-0 bold">Email Address</th>
+                        <th class="border-0 bold">Phone Number</th>
+                        <th class="border-0 bold">Role</th>
+                        <th class="border-0 bold">Edit</th>
+                        <th class="border-0 bold">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+
+                            <td class="align-middle">@employee.FirstName @employee.LastName</td>
+                            <td class="align-middle">@employee.Email</td>
+                            <td class="align-middle">@employee.PhoneNumber</td>
+                            <td class="align-middle">Need to edit</td>
+                            <td class="p-3">
+                                @Html.ActionLink("Edit", "Edit", "Usermanagement", new { id = employee.Id }, new { @class = "" })
+                            </td>
+                            <td class="p-3">
+                                @using (Html.BeginForm("Delete", "Driver", new { id = employee.Id }, FormMethod.Post, false, new { @class = "" }))
+                                {
+                                    <button type="submit" name="name" class="pt-0 btn btn-link" style="font-size: 13.33px;"
+                                            onclick="return confirm(
+                                  'Are you sure you want to delete @employee.FirstName @employee.LastName?')">
+                                        Delete
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(".table").DataTable({});
+    </script>
+}
