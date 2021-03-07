@@ -73,7 +73,7 @@ namespace Carware.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = Url.Content("~/Car/Inventory");
 
             if (ModelState.IsValid)
             {

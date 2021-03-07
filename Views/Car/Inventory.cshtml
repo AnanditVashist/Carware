@@ -1,5 +1,12 @@
 ﻿@model Carware.ViewModels.InventoryViewModel
-<div id="inventoryContainer">
+@section Style{
+    <link rel="stylesheet" href="/css/three-dots.min.css">
+}
+<div id="loader">
+    <div class="dot-spin"></div>
+</div>
+
+<div id="inventoryContainer" class="d-none">
 
     @foreach (var car in Model.Inventory)
     {
@@ -46,13 +53,9 @@
 </div>
 @section Scripts{
     <script>
-        $.fn.digits = function () {
-            return this.each(function () {
-                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-            })
-        }
+
         $(document).ready(function () {
-            console.log("edsfds");
+            delayInventoryConatiner();
             $(".carousel-indicators").each(function () {
                 $(this).children(":first").addClass("active");
             });
@@ -61,6 +64,20 @@
             });
             $(".num").digits();
         })
+
+
+        function delayInventoryConatiner() {
+            setTimeout(function () {
+                $("#inventoryContainer").removeClass("d-none");
+                $("#loader").addClass("d-none");
+            },
+                3000);
+        }
+        $.fn.digits = function () {
+            return this.each(function () {
+                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            })
+        }
     </script>
 
 }

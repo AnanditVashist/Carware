@@ -55,7 +55,6 @@ footer, header, hgroup, menu, nav, section {
     }
 }
 
-#
 body {
     line-height: 1;
 }
@@ -91,6 +90,19 @@ a.navbar-brand {
     }
 }
 /* Provide sufficient contrast against white background */
+
+#loader {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+}
+
+
+
 a {
   color: #0366d6;
 }

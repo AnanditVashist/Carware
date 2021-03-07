@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-   @Html.Partial("_LayoutHeader")
+    @RenderSection("Style", false)
+    <partial name="_LayoutHeader.cshtml" />
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -19,14 +20,14 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @RenderBody()
-            </div>
-            <!-- /.content-wrapper -->
-            <!-- Control Sidebar -->
-            @Html.Partial("_LayoutFooter")
         </div>
-        <!-- ./wrapper -->
-        <!-- REQUIRED SCRIPTS -->
-        @Html.Partial("_LayoutJS")
-        @RenderSection("Scripts", false)
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        @Html.Partial("_LayoutFooter")
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    @Html.Partial("_LayoutJS")
+    @RenderSection("Scripts", false)
 </body>
 </html>
