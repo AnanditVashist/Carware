@@ -21,5 +21,7 @@ namespace Carware.Models
         public string SellerId { get; set; }
         public List<Photo> Photos { get; set; }
 
+        public string Mileage { get; set; }
+
     }
 }

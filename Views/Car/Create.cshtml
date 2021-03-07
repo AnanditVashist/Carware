@@ -23,8 +23,13 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(d => d.Year, "Year")
-        @Html.TextBoxFor(d => d.Year, new { @class = "form-control", type = "number", autofocus = "autofocus", @placeholder = "For ex. 2017", value = " " })
+        @Html.TextBoxFor(d => d.Year, new { @class = "form-control", type = "number", autofocus = "autofocus", value = " " })
         @Html.ValidationMessageFor(d => d.Year, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(d => d.Mileage, "Mileage")
+        @Html.TextBoxFor(d => d.Mileage, new { @class = "form-control", type = "number", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(d => d.Mileage, null, new { @class = "text-danger" })
     </div>
 
 

@@ -25,6 +25,7 @@ namespace Carware.ViewModels
         public ApplicationUser Seller { get; set; }
         public List<String> PhotoString { get; set; }
         public List<IFormFile> Photos { get; set; }
+        public string Mileage { get; set; }
 
     }
 

@@ -49,9 +49,9 @@ namespace Carware.Controllers
 
             return View(await _carService.GetInventory());
         }
-        public IActionResult Sell(int id)
+        public async Task<IActionResult> Sell(int id)
         {
-            return View(_carService.GetSellCarViewModel(id));
+            return View(await _carService.GetSellCarViewModel(id));
         }
 
         [HttpPost]

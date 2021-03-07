@@ -4,12 +4,36 @@
     @foreach (var car in Model.Inventory)
     {
         <div class="card overflow-hidden d-inline-block" style="width: 20rem;">
-            <div class="card-img-top text-center"><img class="img-fluid" src="/img/Car.png" width="150px" height="150px" alt="Card image cap" /></div>
+            <div id="carouselExampleIndicators@(car.Id)" class="carousel slide" data-ride="carousel" data-interval="false">
+                <ol class="carousel-indicators">
+                    @for (int i = 0; i < car.PhotoString.Count; i++)
+                    {
+                        <li data-target="#carouselExampleIndicators@(car.Id)" data-slide-to="@i" class=""></li>
+                    }
+                </ol>
+
+                <div class="carousel-inner">
+                    @foreach (var photo in car.PhotoString)
+                    {
+                        <div class="carousel-item picContainer">
+                            <img class="d-block w-100 pic" src="data:image/png;base64,@(photo)" alt="Slide">
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators@(car.Id)" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators@(car.Id)" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
             <div class="card-body">
-                <h5 class="card-title">@car.Make @car.Model</h5>
+                <h5 class="card-title">@car.Year @car.Make @car.Model</h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Year-@car.Year</li>
                 <li class="list-group-item">Selling Price-@car.SellingPrice</li>
                 <li class="list-group-item">Ideal Selling Price-@car.IdealSellingPrice</li>
                 <li class="list-group-item">Sales Associate-@car.Seller.FirstName @car.Seller.LastName</li>
@@ -20,3 +44,17 @@
 
     }
 </div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            console.log("edsfds");
+            $(".carousel-indicators").each(function () {
+                $(this).children(":first").addClass("active");
+            });
+            $(".carousel-inner").each(function () {
+                $(this).children(":first").addClass("active");
+            });
+        })
+    </script>
+
+}

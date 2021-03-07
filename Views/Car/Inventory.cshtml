@@ -29,21 +29,28 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">@car.Make @car.Model</h5>
+            <div class="card-body mb-0 pb-0">
+                <h2 class="card-title h4 font-weight-bold">@car.Year @car.Make @car.Model</h2><br />
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Year-@car.Year</li>
-                <li class="list-group-item">Price-@car.IdealSellingPrice</li>
-                <li class="list-group-item">Max discount-@car.MaxDiscount</li>
+                <li class="list-group-item text-left mt-0 pt-1">
+                    <i class="fas fa-tachometer-alt"> </i>
+                    <span class="num"> @car.Mileage</span>
+                </li>
+                <li class="list-group-item text-right num">$@car.IdealSellingPrice</li>
             </ul>
-            <div class="card-body"><a class="card-link" asp-action="Sell" asp-route-id="@car.Id">Start Sale</a></div>
+            <div class="card-body text-center h4"><a class="card-link" asp-action="Sell" asp-route-id="@car.Id">Start Sale</a></div>
         </div>
 
     }
 </div>
 @section Scripts{
     <script>
+        $.fn.digits = function () {
+            return this.each(function () {
+                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            })
+        }
         $(document).ready(function () {
             console.log("edsfds");
             $(".carousel-indicators").each(function () {
@@ -52,6 +59,7 @@
             $(".carousel-inner").each(function () {
                 $(this).children(":first").addClass("active");
             });
+            $(".num").digits();
         })
     </script>
 

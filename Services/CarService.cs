@@ -16,6 +16,7 @@ namespace Carware.Services
 {
     public class CarService : ICarService
     {
+
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
         private ApplicationDbContext _dbContext;
@@ -66,8 +67,9 @@ namespace Carware.Services
                 Year = (car.Year).ToString(),
                 PurchaseDate = car.PurchaseDate,
                 PurchasePrice = (car.PurchasePrice).ToString(),
-                IdealSellingPrice = (car.IdealSellingPrice).ToString(),
+                IdealSellingPrice = car.IdealSellingPrice.ToString(),
                 MaxDiscount = (car.MaxDiscount).ToString(),
+                Mileage = car.Mileage
 
             };
 
@@ -97,7 +99,8 @@ namespace Carware.Services
                 PurchaseDate = viewModel.PurchaseDate,
                 PurchasePrice = Int32.Parse(viewModel.PurchasePrice),
                 IdealSellingPrice = Int32.Parse(viewModel.IdealSellingPrice),
-                MaxDiscount = Int32.Parse(viewModel.MaxDiscount)
+                MaxDiscount = Int32.Parse(viewModel.MaxDiscount),
+                Mileage = viewModel.Mileage
             };
 
             return car;
@@ -115,7 +118,7 @@ namespace Carware.Services
             carIndb.PurchasePrice = Int32.Parse(viewModel.PurchasePrice);
             carIndb.IdealSellingPrice = Int32.Parse(viewModel.IdealSellingPrice);
             carIndb.MaxDiscount = Int32.Parse(viewModel.MaxDiscount);
-
+            carIndb.Mileage = viewModel.Mileage;
             _dbContext.SaveChanges();
         }
 
@@ -144,7 +147,7 @@ namespace Carware.Services
         public async Task<SellCarViewModel> GetSellCarViewModel(int carId)
         {
             var viewModel = new SellCarViewModel();
-            viewModel.Car = await TurnCarToViewModelAsync(_dbContext.Cars.Find(carId));
+            viewModel.Car = await TurnCarToViewModelAsync(_dbContext.Cars.Include(c => c.Photos).First(c => c.Id == carId));
 
             return viewModel;
         }
@@ -171,7 +174,7 @@ namespace Carware.Services
         {
             var soldCars = new InventoryViewModel();
 
-            var soldCarsInDb = _dbContext.Cars.Where(c => c.SellingDate != null).ToList();
+            var soldCarsInDb = _dbContext.Cars.Include(c => c.Photos).Where(c => c.SellingDate != null).ToList();
 
             foreach (var car in soldCarsInDb)
             {
